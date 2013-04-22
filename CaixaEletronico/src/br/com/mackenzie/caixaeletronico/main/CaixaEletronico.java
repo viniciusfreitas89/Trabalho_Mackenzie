@@ -4,8 +4,10 @@
  */
 package br.com.mackenzie.caixaeletronico.main;
 
-import br.com.mackenzie.caixaeletronico.model.transacao.SacarValor;
-import br.com.mackenzie.caixaeletronico.model.transacao.TransacaoFactory;
+import br.com.mackenzie.caixaeletronico.model.transacao.*;
+import br.com.mackenzie.caixaeletronico.model.transacao2.TransacaoEnum;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -18,6 +20,13 @@ public class CaixaEletronico {
      */
     public static void main(String[] args) {
         SacarValor objSacar = TransacaoFactory.getSacarValorInstance();
-        objSacar.sacar();
+        
+        try {
+            br.com.mackenzie.caixaeletronico.model.transacao2.TransacaoFactory t = 
+                    new br.com.mackenzie.caixaeletronico.model.transacao2.TransacaoFactory();
+            t.criarTransacao(TransacaoEnum.SAQUE);
+        } catch (Exception ex) {
+            Logger.getLogger(CaixaEletronico.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 }
