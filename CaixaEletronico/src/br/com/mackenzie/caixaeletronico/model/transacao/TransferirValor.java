@@ -9,5 +9,5 @@ package br.com.mackenzie.caixaeletronico.model.transacao;
  * @author Vinicius
  */
 public class TransferirValor extends TransacaoFactory{
-    
+    protected TransferirValor(){}
 }

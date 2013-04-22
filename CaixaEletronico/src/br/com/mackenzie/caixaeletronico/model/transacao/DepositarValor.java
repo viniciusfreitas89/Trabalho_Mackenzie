@@ -8,6 +8,6 @@ package br.com.mackenzie.caixaeletronico.model.transacao;
  *
  * @author Vinicius
  */
-public class DepositarValor extends TransacaoFactory{
-    
+ public class DepositarValor {
+    protected DepositarValor(){}
 }
