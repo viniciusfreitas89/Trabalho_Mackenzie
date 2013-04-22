@@ -18,5 +18,6 @@ public class CaixaEletronico {
      */
     public static void main(String[] args) {
         SacarValor objSacar = TransacaoFactory.getSacarValorInstance();
+        objSacar.sacar();
     }
 }

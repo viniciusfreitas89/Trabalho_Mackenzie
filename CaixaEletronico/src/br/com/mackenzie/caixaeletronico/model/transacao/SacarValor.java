@@ -10,4 +10,7 @@ package br.com.mackenzie.caixaeletronico.model.transacao;
  */
 public class SacarValor extends TransacaoFactory{
     
+    public void sacar(){
+        System.out.println("Saque realizado");
+    }
 }
