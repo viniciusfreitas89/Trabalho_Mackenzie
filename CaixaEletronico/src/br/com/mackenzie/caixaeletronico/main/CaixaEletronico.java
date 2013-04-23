@@ -11,11 +11,8 @@ import br.com.mackenzie.caixaeletronico.model.transacao.*;
  * @author Vinicius
  */
 public class CaixaEletronico {
-
-    /**
-     * @param args the command line arguments
-     */
     public static void main(String[] args) {
-        SacarValor objSacar = TransacaoFactory.getSacarValorInstance();
+        SacarValor objSacar = TransacaoFactory.criarSacarValor();
+        objSacar.sacar();
     }
 }
