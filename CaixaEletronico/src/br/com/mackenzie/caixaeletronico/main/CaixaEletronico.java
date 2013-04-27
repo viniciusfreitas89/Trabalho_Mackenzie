@@ -4,7 +4,11 @@
  */
 package br.com.mackenzie.caixaeletronico.main;
 
+import br.com.mackenzie.caixaeletronico.log.Log;
+import br.com.mackenzie.caixaeletronico.model.conta.Conta;
 import br.com.mackenzie.caixaeletronico.model.transacao.*;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -12,7 +16,19 @@ import br.com.mackenzie.caixaeletronico.model.transacao.*;
  */
 public class CaixaEletronico {
     public static void main(String[] args) {
-        SacarValor objSacar = TransacaoFactory.criarSacarValor();
-        objSacar.sacar();
+        try {
+            Conta conta = new Conta("123456");
+            conta.setSaldo(100);
+            
+            Log.limparLog(conta);
+            
+            TransacaoFactory.criarDepositarValor().depositar(conta, 100);
+            TransacaoFactory.criarSacarValor().sacar(conta, 100);
+            TransacaoFactory.criarSacarValor().sacar(conta, 800);
+            
+            Log.exibirLog(conta);
+        } catch (Exception ex) {
+            Logger.getLogger(CaixaEletronico.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 }
