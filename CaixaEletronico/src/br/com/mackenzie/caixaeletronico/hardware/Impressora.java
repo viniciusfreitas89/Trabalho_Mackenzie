@@ -6,8 +6,12 @@ package br.com.mackenzie.caixaeletronico.hardware;
 
 /**
  *
- * @author 71306552
+ * @author Antonio
  */
 public class Impressora {
+    
+    public void imprimir(String txt){
+        System.out.println(txt);
+    }
     
 }

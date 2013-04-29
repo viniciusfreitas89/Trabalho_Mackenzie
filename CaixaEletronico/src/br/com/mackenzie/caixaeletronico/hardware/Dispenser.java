@@ -6,8 +6,12 @@ package br.com.mackenzie.caixaeletronico.hardware;
 
 /**
  *
- * @author 71306552
+ * @author Antonio
  */
 public class Dispenser {
-    
+      
+    public int liberarNota(int valor){
+        System.out.println("\nretire as notas");
+        return valor;
+    }
 }
