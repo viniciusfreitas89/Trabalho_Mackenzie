@@ -4,28 +4,21 @@
  */
 package br.com.mackenzie.caixaeletronico.hardware;
 import br.com.mackenzie.caixaeletronico.model.conta.*;
-import java.util.ArrayList;
+import br.com.mackenzie.caixaeletronico.util.BaseDados;
 /**
  *
  * @author Antonio
  */
 public class LeitoraCartao {
     
-    public static void lerCartao(Cartao c, ArrayList<Conta> minhasContas){
-        int numAtual = c.getNumeroCartao();
-        for(int i=0; i < minhasContas.size(); i++){
-            int numCartao = minhasContas.get(i).getCartao().getNumeroCartao(); 
-            if(numAtual == numCartao ){
-               System.out.println("cartão válido("+ numAtual +")");
-               break;
-            }else{
-                if(i == minhasContas.size()){
-                System.out.println("cartão inválido("+ numAtual +")");
-                }
-            }
-            
-       }
+    public static void lerCartao(Cartao c){
+        int index = BaseDados.cartaoExiste(c);
         
+        if (index > -1){
+            System.out.println("cartão válido("+ c.getNumeroCartao() +")");
+        }else{
+            System.out.println("cartão inválido("+ c.getNumeroCartao() +")");
+        }
     }   
 
 }

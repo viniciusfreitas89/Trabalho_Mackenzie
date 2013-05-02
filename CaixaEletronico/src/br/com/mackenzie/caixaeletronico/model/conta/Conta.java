@@ -10,17 +10,32 @@ package br.com.mackenzie.caixaeletronico.model.conta;
  * @author 71306552
  */
 public class Conta {
+    private Cliente cliente;
     private Cartao cartao;
-    private String numero;
+    private long numero;
     private float saldo;
     
-    public Conta(String numero) throws Exception{
-        if (numero.length() < 5){
-            throw new Exception("O número da conta deve ter no mínimo 5 dígitos!");
-        }
+    public Conta(long numero, Cliente cliente){
+//        int length = (int)(Math.log10(1000)+1);
+//        if (length < 5){
+//            throw new Exception("O número da conta deve ter no mínimo 5 dígitos!");
+//        }
+        
         this.numero = numero;
+        this.cliente = cliente;
         this.saldo = 0;
         this.cartao = null;
+    }
+    
+    @Override
+    public boolean equals(Object o){
+        if (o!=null && o instanceof Conta){
+            Conta c = (Conta) o;
+            if (c.getNumero() == this.getNumero()){
+                return true;
+            }
+        }
+        return false;
     }
 
     public Cartao getCartao() {
@@ -39,12 +54,11 @@ public class Conta {
         this.saldo = saldo;
     }
 
-    public String getNumero() {
+    public long getNumero() {
         return numero;
     }
 
-    public void setNumero(String numero) {
-        this.numero = numero;
+    public Cliente getCliente() {
+        return cliente;
     }
-    
 }
