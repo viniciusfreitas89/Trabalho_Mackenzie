@@ -123,6 +123,21 @@ public class BaseDados {
     public static int clienteExiste(Cliente cliente){
         return clientes.indexOf(cliente);
     }
+    
+    public static void listarCartoes(){
+        for (Cartao elem : cartoes)
+            System.out.println("Nº do Cartão: "+elem);
+    }
+    
+    public static void listarContas(){
+        for (Conta elem : contas)
+            System.out.println("Nº da Conta: "+elem);
+    }
+    
+    public static void listarClientes(){
+        for (Cliente elem : clientes)
+            System.out.println("Cliente: "+elem);
+    }
 
     public static List<Cliente> getClientes() {
         return clientes;

@@ -14,29 +14,34 @@ public class Cartao {
     private Conta conta;
     private long numeroCartao;
     private String senha;
+    private boolean retido;
     
     public Cartao(Conta conta, String senha){
         this.conta = conta;
         this.senha = Criptografia.criptografar(senha);
         this.numeroCartao = conta.getNumero();
+        this.retido = false;
     }
     
     public Cartao(Conta conta){
         this.conta = conta;
         this.senha = "";
         this.numeroCartao = conta.getNumero();
+        this.retido = false;
     }
     
     public Cartao(long numeroCartao){
         this.conta = null;
         this.senha = "";
         this.numeroCartao = numeroCartao;
+        this.retido = false;
     }
     
     public Cartao(){
         this.conta = null;
         this.senha = "";
         this.numeroCartao = 0;
+        this.retido = false;
     }
     
     @Override
@@ -48,6 +53,11 @@ public class Cartao {
             }
         }
         return false;
+    }
+    
+    @Override
+    public String toString(){
+        return String.valueOf(this.numeroCartao);
     }
 
     public Conta getConta() {
@@ -68,4 +78,13 @@ public class Cartao {
     public long getNumeroCartao() {
         return numeroCartao;
     }
+
+    public boolean isRetido() {
+        return retido;
+    }
+
+    public void setRetido(boolean retido) {
+        this.retido = retido;
+    }
+    
 }

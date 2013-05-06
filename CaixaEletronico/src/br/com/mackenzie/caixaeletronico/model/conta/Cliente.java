@@ -29,6 +29,11 @@ public class Cliente {
         return false;
     }
     
+    @Override
+    public String toString(){
+        return String.valueOf(this.nome);
+    }
+    
     public String getNome() {
         return nome;
     }

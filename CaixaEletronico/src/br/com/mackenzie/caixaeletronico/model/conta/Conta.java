@@ -37,6 +37,11 @@ public class Conta {
         }
         return false;
     }
+    
+    @Override
+    public String toString(){
+        return String.valueOf(this.numero);
+    }
 
     public Cartao getCartao() {
         return cartao;

@@ -11,14 +11,8 @@ import br.com.mackenzie.caixaeletronico.util.BaseDados;
  */
 public class LeitoraCartao {
     
-    public static void lerCartao(Cartao c){
-        int index = BaseDados.cartaoExiste(c);
-        
-        if (index > -1){
-            System.out.println("cartão válido("+ c.getNumeroCartao() +")");
-        }else{
-            System.out.println("cartão inválido("+ c.getNumeroCartao() +")");
-        }
+    public static int lerCartao(Cartao c){
+        return BaseDados.cartaoExiste(c);
     }   
 
 }
