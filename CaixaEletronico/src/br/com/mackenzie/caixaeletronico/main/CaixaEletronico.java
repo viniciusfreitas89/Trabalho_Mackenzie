@@ -6,9 +6,11 @@ package br.com.mackenzie.caixaeletronico.main;
 
 import br.com.mackenzie.caixaeletronico.hardware.LeitoraCartao;
 import br.com.mackenzie.caixaeletronico.model.conta.Cartao;
+import br.com.mackenzie.caixaeletronico.model.transacao.TransacaoFactory;
 import br.com.mackenzie.caixaeletronico.util.BaseDados;
 import br.com.mackenzie.caixaeletronico.util.Util;
 import java.io.IOException;
+import java.util.Date;
 import java.util.List;
 import java.util.Scanner;
 
@@ -18,8 +20,19 @@ import java.util.Scanner;
  */
 public class CaixaEletronico {
     public static void main(String[] args) throws IOException {
-        CaixaEletronico cx = new CaixaEletronico();
-        cx.exibirMenuInicial();
+        TransacaoFactory.criarDepositarValor().depositar(BaseDados.getContas().get(0), 500);
+        TransacaoFactory.criarDepositarValor().depositar(BaseDados.getContas().get(0), 500);
+        TransacaoFactory.criarSacarValor().sacar(BaseDados.getContas().get(0), 11);
+        TransacaoFactory.criarSacarValor().sacar(BaseDados.getContas().get(0), 411);
+        TransacaoFactory.criarTransferirValor().transferir(BaseDados.getContas().get(0), BaseDados.getContas().get(1), 411);
+        
+        TransacaoFactory.criarExtrato().consultarExtrato(BaseDados.getContas().get(0), new Date(), new Date());
+        TransacaoFactory.criarExtrato().consultarExtrato(BaseDados.getContas().get(1), new Date(), new Date());
+        System.out.println();
+        System.out.println();
+        
+//        CaixaEletronico cx = new CaixaEletronico();
+//        cx.exibirMenuInicial();
     }
     
     public void exibirMenuTransacoesAutenticadas(){

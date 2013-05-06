@@ -21,4 +21,8 @@ public abstract class TransacaoFactory {
     public static TransferirValor criarTransferirValor(){
         return new TransferirValor();
     }
+    
+    public static Extrato criarExtrato(){
+        return new Extrato();
+    }
 }

@@ -4,6 +4,9 @@
  */
 package br.com.mackenzie.caixaeletronico.model.conta;
 
+import java.util.ArrayList;
+import java.util.List;
+
 
 /**
  *
@@ -14,17 +17,15 @@ public class Conta {
     private Cartao cartao;
     private long numero;
     private float saldo;
+    private List<Historico> listaHistorico;
     
     public Conta(long numero, Cliente cliente){
-//        int length = (int)(Math.log10(1000)+1);
-//        if (length < 5){
-//            throw new Exception("O número da conta deve ter no mínimo 5 dígitos!");
-//        }
-        
         this.numero = numero;
         this.cliente = cliente;
         this.saldo = 0;
         this.cartao = null;
+        
+        listaHistorico = new ArrayList<Historico>();
     }
     
     @Override
@@ -65,5 +66,13 @@ public class Conta {
 
     public Cliente getCliente() {
         return cliente;
+    }
+
+    public List<Historico> getListaHistorico() {
+        return listaHistorico;
+    }
+
+    public void setListaHistorico(List<Historico> listaHistorico) {
+        this.listaHistorico = listaHistorico;
     }
 }

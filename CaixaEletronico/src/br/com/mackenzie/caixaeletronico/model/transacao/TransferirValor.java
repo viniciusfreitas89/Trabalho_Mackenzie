@@ -6,7 +6,9 @@ package br.com.mackenzie.caixaeletronico.model.transacao;
 
 import br.com.mackenzie.caixaeletronico.log.Log;
 import br.com.mackenzie.caixaeletronico.model.conta.Conta;
+import br.com.mackenzie.caixaeletronico.model.conta.Historico;
 import br.com.mackenzie.caixaeletronico.util.ConstantsUtil;
+import java.util.Date;
 
 /**
  *
@@ -19,6 +21,8 @@ public class TransferirValor extends TransacaoFactory{
         TransacaoFactory.criarSacarValor().sacar(destino, valor);
         TransacaoFactory.criarDepositarValor().depositar(destino, valor);
         
+        origem.getListaHistorico().add(new Historico("Transferência Enviada para a conta: "+destino, new Date(), valor));
+        destino.getListaHistorico().add(new Historico("Transferência Recebida da conta: "+origem, new Date(), valor));
         Log.gravarTransacao(origem, ConstantsUtil.LOG_MENSAGEM_ENVIAR_TRANSFERENCIA+valor);
         Log.gravarTransacao(origem, ConstantsUtil.LOG_MENSAGEM_RECEBER_TRANSFERENCIA+valor);
         

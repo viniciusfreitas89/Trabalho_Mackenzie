@@ -15,4 +15,5 @@ public class ConstantsUtil {
     public static final String LOG_MENSAGEM_SAQUE = "SAQUE REALIZADO NO VALOR: ";
     public static final String LOG_MENSAGEM_ENVIAR_TRANSFERENCIA = "TRANSFERENCIA REALIZADO NO VALOR: ";
     public static final String LOG_MENSAGEM_RECEBER_TRANSFERENCIA = "TRANSFERENCIA RECEBIDA NO VALOR: ";
+    
 }

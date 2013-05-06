@@ -125,18 +125,21 @@ public class BaseDados {
     }
     
     public static void listarCartoes(){
-        for (Cartao elem : cartoes)
+        for (Cartao elem : cartoes){
             System.out.println("Nº do Cartão: "+elem);
+        }
     }
     
     public static void listarContas(){
-        for (Conta elem : contas)
+        for (Conta elem : contas){
             System.out.println("Nº da Conta: "+elem);
+        }
     }
     
     public static void listarClientes(){
-        for (Cliente elem : clientes)
+        for (Cliente elem : clientes){
             System.out.println("Cliente: "+elem);
+        }
     }
 
     public static List<Cliente> getClientes() {
