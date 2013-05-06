@@ -4,11 +4,8 @@
  */
 package br.com.mackenzie.caixaeletronico.main;
 
-import br.com.mackenzie.caixaeletronico.model.conta.Cartao;
-import br.com.mackenzie.caixaeletronico.util.BaseDados;
 import br.com.mackenzie.caixaeletronico.util.Util;
-import java.util.List;
-import java.util.Scanner;
+
 
 /**
  *
@@ -22,6 +19,14 @@ public class Executar {
             }
         }
     }
+    
+    public static void funcoesMenuTransacoes(String opcao){
+       if (Util.isInteger(opcao)){
+           if (opcao.equals("0")){
+               System.exit(0);
+           }
+       }
+   }
     
     
 }

@@ -35,14 +35,16 @@ public class CaixaEletronico {
             System.out.println("4 - Transferência entre contas");
             System.out.println("5 - Extrato na tela");
             System.out.println("");
-            System.out.println("0 - Sair");
+            System.out.println("0 - Finalizar Sistema");
+            System.out.println("M - Menu Anterior");
             System.out.println("");
             System.out.print(" -> Informe a opção desejada: ");
             opcao = ler.nextLine();
             System.out.println("");
             System.out.println("##################################################\n");
             
-        }while (!opcao.equals("0"));
+            Executar.funcoesMenuTransacoes(opcao);
+        }while (!opcao.equalsIgnoreCase("M"));
     }
     
     public void exibirMenuInicial(){
@@ -55,7 +57,7 @@ public class CaixaEletronico {
             System.out.println("1 - Inserir Cartão");
             System.out.println("2 - Transferência entre contas");
             System.out.println("");
-            System.out.println("0 - Sair");
+            System.out.println("0 - Finalizar Sistema");
             System.out.println("");
             System.out.print(" -> Informe a opção desejada: ");
             opcao = ler.nextLine();
@@ -81,7 +83,7 @@ public class CaixaEletronico {
                 System.out.println((++i)+" - Cartão: "+card);
             }
             System.out.println("");
-            System.out.println("0 - Sair");
+            System.out.println("0 - Finalizar Sistema");
             System.out.println("M - Menu Anterior");
             System.out.println("");
             System.out.print(" -> Informe a opção desejada: ");
@@ -94,8 +96,10 @@ public class CaixaEletronico {
                     if (index > -1){
                         Cartao cartao = BaseDados.getCartoes().get(index);
                         if (cartao.isRetido()){
-                            System.out.println("Este cartão esta retido!");
+                            System.err.println("####### Este cartão esta retido! #######");
                         }else{
+                            
+                            System.out.println("Senha Padrão: 123456");
                             System.out.print(" -> Digite a senha: ");
                             String senha = ler.nextLine();
                             System.out.println("");
@@ -106,9 +110,9 @@ public class CaixaEletronico {
                                 senha = ler.nextLine();
                                 System.out.println("");
                             }
-                            if (tentativas == 2){
+                            if (!BaseDados.cartaoSenhaConfere(cartao, senha) && tentativas == 2){
                                 cartao.setRetido(true);
-                                System.out.println("####### Cartão Retido!");
+                                System.err.println("####### Cartão Retido! #######");
                             }else{
                                 exibirMenuTransacoesAutenticadas();
                             }
