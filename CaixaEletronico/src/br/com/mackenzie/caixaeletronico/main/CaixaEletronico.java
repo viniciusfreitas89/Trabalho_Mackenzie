@@ -6,11 +6,10 @@ package br.com.mackenzie.caixaeletronico.main;
 
 import br.com.mackenzie.caixaeletronico.hardware.LeitoraCartao;
 import br.com.mackenzie.caixaeletronico.model.conta.Cartao;
-import br.com.mackenzie.caixaeletronico.model.transacao.TransacaoFactory;
+import br.com.mackenzie.caixaeletronico.model.conta.Conta;
 import br.com.mackenzie.caixaeletronico.util.BaseDados;
 import br.com.mackenzie.caixaeletronico.util.Util;
 import java.io.IOException;
-import java.util.Date;
 import java.util.List;
 import java.util.Scanner;
 
@@ -19,20 +18,11 @@ import java.util.Scanner;
  * @author Vinicius
  */
 public class CaixaEletronico {
+    private Conta contaAutenticada;
+    
     public static void main(String[] args) throws IOException {
-        TransacaoFactory.criarDepositarValor().depositar(BaseDados.getContas().get(0), 500);
-        TransacaoFactory.criarDepositarValor().depositar(BaseDados.getContas().get(0), 500);
-        TransacaoFactory.criarSacarValor().sacar(BaseDados.getContas().get(0), 11);
-        TransacaoFactory.criarSacarValor().sacar(BaseDados.getContas().get(0), 411);
-        TransacaoFactory.criarTransferirValor().transferir(BaseDados.getContas().get(0), BaseDados.getContas().get(1), 411);
-        
-        TransacaoFactory.criarExtrato().consultarExtrato(BaseDados.getContas().get(0), new Date(), new Date());
-        TransacaoFactory.criarExtrato().consultarExtrato(BaseDados.getContas().get(1), new Date(), new Date());
-        System.out.println();
-        System.out.println();
-        
-//        CaixaEletronico cx = new CaixaEletronico();
-//        cx.exibirMenuInicial();
+        CaixaEletronico cx = new CaixaEletronico();
+        cx.exibirMenuInicial();
     }
     
     public void exibirMenuTransacoesAutenticadas(){
@@ -43,13 +33,11 @@ public class CaixaEletronico {
             
             System.out.println("##################################################\n");
             System.out.println("1 - Sacar Valor");
-            System.out.println("2 - Deposito em Cheque");
-            System.out.println("3 - Deposito em Dinheiro");
-            System.out.println("4 - Transferência entre contas");
-            System.out.println("5 - Extrato na tela");
+            System.out.println("2 - Transferência entre contas");
+            System.out.println("3 - Extrato na tela");
             System.out.println("");
             System.out.println("0 - Finalizar Sistema");
-            System.out.println("M - Menu Anterior");
+            System.out.println("M - Menu Inicial");
             System.out.println("");
             System.out.print(" -> Informe a opção desejada: ");
             opcao = ler.nextLine();
@@ -68,7 +56,8 @@ public class CaixaEletronico {
             
             System.out.println("##################################################\n");
             System.out.println("1 - Inserir Cartão");
-            System.out.println("2 - Transferência entre contas");
+            System.out.println("2 - Deposito em Cheque");
+            System.out.println("3 - Deposito em Dinheiro");
             System.out.println("");
             System.out.println("0 - Finalizar Sistema");
             System.out.println("");
@@ -111,7 +100,6 @@ public class CaixaEletronico {
                         if (cartao.isRetido()){
                             System.err.println("####### Este cartão esta retido! #######");
                         }else{
-                            
                             System.out.println("Senha Padrão: 123456");
                             System.out.print(" -> Digite a senha: ");
                             String senha = ler.nextLine();
@@ -137,7 +125,6 @@ public class CaixaEletronico {
                     System.out.println("Cartão inválido!");
                 }
             }
-            
         }while (!opcao.equalsIgnoreCase("M"));
     }
     
