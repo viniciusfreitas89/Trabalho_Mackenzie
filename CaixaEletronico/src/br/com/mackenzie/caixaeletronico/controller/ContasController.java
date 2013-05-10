@@ -4,32 +4,43 @@
  */
 package br.com.mackenzie.caixaeletronico.controller;
 import br.com.mackenzie.caixaeletronico.model.conta.*;
+import br.com.mackenzie.caixaeletronico.model.transacao.*;
+import br.com.mackenzie.caixaeletronico.util.BaseDados;
+import java.util.Date;
 /**
  *
  * @author Antonio
  */
 public class ContasController {
     
-    private Cartao cartao;
-    private Conta dadosConta;
+    public Status validarConta(Cartao cartao){
+       int index = BaseDados.cartaoExiste(cartao);
+       
+       if(index == -1){
+        return new Status(-1, "Cartão inválido", null);
+       }else{       
+       
+            if(BaseDados.cartaoSenhaConfere(BaseDados.getCartoes().get(index), cartao.getSenha())){
+                return new Status(0, "Senha válida", BaseDados.getCartoes().get(index).getConta());
+            }else{
+                return new Status(-2, "Senha inválida", null);
+            }
+       }
+     }
     
-    public void construct(Cartao cartao, String senha){
-        
-    }
-     public boolean validarConta(Cartao cartao){
-           return false;
+     public String consultarExtrato(Conta conta, Date dtInicio, Date dtFim){
+         return TransacaoFactory.criarExtrato().consultarExtrato(conta, dtInicio, dtFim);
      }
-     
-     public void consultarExtrato(Cartao cartao, String dtInicio, String dtFim){
-         
+     public boolean transferirValor(Conta contaOrigem, float valor, Conta contaDestino){
+        return TransacaoFactory.criarTransferirValor().transferir(contaOrigem, contaDestino, valor);                 
      }
-     public void transferirValor(Cartao cartao, float valor, int agencia, int conta){
-         
+     public boolean depositarValor(Conta conta, float valor, char tipoDeposito){
+        return TransacaoFactory.criarDepositarValor().depositar(conta, valor);          
      }
-     public void depositarValor(Cartao cartao, float valor, char tipoDeposito){
-         
-     }
-     public Conta consultarSaldo(Cartao cartao){
-       return dadosConta;
+     public boolean sacarValor(Conta conta, float valor){
+        return TransacaoFactory.criarSacarValor().sacar(conta, valor);        
+     }     
+     public void consultarSaldo(Conta conta){
+         conta.getSaldo();
      }
 }

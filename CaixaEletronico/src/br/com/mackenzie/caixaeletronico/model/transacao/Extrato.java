@@ -15,10 +15,12 @@ import java.util.Date;
  public class Extrato {
     protected Extrato(){}
     
-    public void consultarExtrato(Conta conta, Date dtInicio, Date dtFim){
-        System.out.println("### Extrato Bancário:");
+    public String consultarExtrato(Conta conta, Date dtInicio, Date dtFim){
+        String str ="";  
+        str+= "### Extrato Bancário:";
         for (Historico historico : conta.getListaHistorico()){
-            System.out.println(historico);
+            str+= historico;
         }
+        return str;
     }
 }

@@ -101,7 +101,7 @@ public class BaseDados {
     public static boolean cartaoSenhaConfere(Cartao c, String senha){
         int index = cartaoExiste(c);
         if (index > -1){
-            if (c.getSenha().equals(Criptografia.criptografar(senha))){
+            if (c.getSenha().equals(senha)){
                 return true;
             }
         }
