@@ -13,19 +13,28 @@ import java.util.Date;
  */
 public class ContasController {
     
-    public Status validarConta(Cartao cartao){
-       int index = BaseDados.cartaoExiste(cartao);
-       
+    public Cartao validaCartao(long numCartao){
+         Cartao c = new Cartao(numCartao);
+         int index = BaseDados.cartaoExiste(c);
+         
        if(index == -1){
-        return new Status(-1, "Cartão inválido", null);
-       }else{       
-       
-            if(BaseDados.cartaoSenhaConfere(BaseDados.getCartoes().get(index), cartao.getSenha())){
+        return null;
+       }else{
+        return BaseDados.getCartoes().get(index);
+       }
+    }
+    
+    public Status validarConta(Cartao cartao){
+             
+            int index = BaseDados.cartaoExiste(cartao);
+             if(index > -1){
+                 if(BaseDados.cartaoSenhaConfere(BaseDados.getCartoes().get(index), cartao.getSenha())){
                 return new Status(0, "Senha válida", BaseDados.getCartoes().get(index).getConta());
             }else{
                 return new Status(-2, "Senha inválida", null);
             }
-       }
+           }
+             return new Status(-1, "Cartão inválido", null);
      }
     
      public String consultarExtrato(Conta conta, Date dtInicio, Date dtFim){
