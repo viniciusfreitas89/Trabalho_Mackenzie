@@ -17,4 +17,22 @@ public class Util {
         }
         return true;
     }
+    
+    public static boolean isLong(String str){
+        try {
+            Long.parseLong(str);
+        } catch (Exception e) {
+            return false;
+        }
+        return true;
+    }
+    
+    public static boolean isFloat(String str){
+        try {
+            Float.parseFloat(str);
+        } catch (Exception e) {
+            return false;
+        }
+        return true;
+    }
 }

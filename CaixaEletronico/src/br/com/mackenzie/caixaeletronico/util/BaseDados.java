@@ -40,6 +40,7 @@ public class BaseDados {
             c.setDocumento("123456");
             clientes.add(c);
             conta = new Conta(123456, c);
+            conta.setSaldo(1000);
             card = new Cartao(conta, "123456");
             cartoes.add(card);
             conta.setCartao(card);
@@ -50,6 +51,7 @@ public class BaseDados {
             c.setDocumento("789123");
             clientes.add(c);
             conta = new Conta(789123, c);
+            conta.setSaldo(1000);
             card = new Cartao(conta, "123456");
             cartoes.add(card);
             conta.setCartao(card);
@@ -60,6 +62,7 @@ public class BaseDados {
             c.setDocumento("55s88ddd");
             clientes.add(c);
             conta = new Conta(445589, c);
+            conta.setSaldo(1000);
             card = new Cartao(conta, "123456");
             cartoes.add(card);
             conta.setCartao(card);
@@ -70,6 +73,7 @@ public class BaseDados {
             c.setDocumento("asacs5445");
             clientes.add(c);
             conta = new Conta(778551, c);
+            conta.setSaldo(1000);
             card = new Cartao(conta, "123456");
             cartoes.add(card);
             conta.setCartao(card);
@@ -80,6 +84,7 @@ public class BaseDados {
             c.setDocumento("18asa8sa8");
             clientes.add(c);
             conta = new Conta(4852668, c);
+            conta.setSaldo(1000);
             card = new Cartao(conta, "123456");
             cartoes.add(card);
             conta.setCartao(card);

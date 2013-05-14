@@ -4,15 +4,12 @@
  */
 package br.com.mackenzie.caixaeletronico.main;
 
-import br.com.mackenzie.caixaeletronico.hardware.LeitoraCartao;
+import br.com.mackenzie.caixaeletronico.controller.ContasController;
 import br.com.mackenzie.caixaeletronico.model.conta.Cartao;
 import br.com.mackenzie.caixaeletronico.model.conta.Conta;
-import br.com.mackenzie.caixaeletronico.util.BaseDados;
 import br.com.mackenzie.caixaeletronico.util.Util;
 import java.io.IOException;
-import java.util.List;
 import java.util.Scanner;
-
 /**
  *
  * @author Vinicius
@@ -44,7 +41,7 @@ public class CaixaEletronico {
             System.out.println("");
             System.out.println("##################################################\n");
             
-            Executar.funcoesMenuTransacoes(opcao);
+            Executar.funcoesMenuTransacoes(opcao, contaAutenticada);
         }while (!opcao.equalsIgnoreCase("M"));
     }
     
@@ -65,6 +62,7 @@ public class CaixaEletronico {
             opcao = ler.nextLine();
             System.out.println("");
             System.out.println("##################################################\n");
+           
             if (opcao.equals("1")){
                 exibirMenuComCartoesValidos();
             }else{
@@ -74,58 +72,98 @@ public class CaixaEletronico {
     }
     
     public void exibirMenuComCartoesValidos(){
-        List<Cartao> cartoes = BaseDados.getCartoes();
+//        List<Cartao> cartoes = BaseDados.getCartoes();
+        
+        ContasController controller = new ContasController();
         Scanner ler = new Scanner(System.in);
 	String opcao = "";
         do{
             System.out.println("##################################################\n");
             System.out.println("Selecione o cartão desejado: ");
-            int i = 0;
-            for (Cartao card : cartoes){
-                System.out.println((++i)+" - Cartão: "+card);
-            }
+            
             System.out.println("");
             System.out.println("0 - Finalizar Sistema");
             System.out.println("M - Menu Anterior");
             System.out.println("");
-            System.out.print(" -> Informe a opção desejada: ");
-            opcao = ler.nextLine();
+            
             System.out.println("");
             System.out.println("##################################################\n");
-            if (Util.isInteger(opcao) && !opcao.equals("0")){
+            
                 try{
-                    int index = LeitoraCartao.lerCartao(cartoes.get(Integer.parseInt(opcao)-1));
-                    if (index > -1){
-                        Cartao cartao = BaseDados.getCartoes().get(index);
+                    Cartao cartao = digitarCartao();
+                    
+                    if (cartao != null){
                         if (cartao.isRetido()){
                             System.err.println("####### Este cartão esta retido! #######");
                         }else{
                             System.out.println("Senha Padrão: 123456");
                             System.out.print(" -> Digite a senha: ");
+                            
                             String senha = ler.nextLine();
+                            cartao.setSenha(senha);
+                            
                             System.out.println("");
                             int tentativas = 0;
-                            while (tentativas < 2 && !BaseDados.cartaoSenhaConfere(cartao, senha)){
+                            
+                            while (tentativas < 2 && controller.validarSenha(cartao).getStatus() != 0){
                                 tentativas++;
                                 System.out.print(" -> Digite a senha novamente: ");
+                                
                                 senha = ler.nextLine();
+                                cartao.setSenha(senha);
+                                
                                 System.out.println("");
                             }
-                            if (!BaseDados.cartaoSenhaConfere(cartao, senha) && tentativas == 2){
+                            
+                            if (controller.validarSenha(cartao).getStatus() == 0 && tentativas == 2){
                                 cartao.setRetido(true);
                                 System.err.println("####### Cartão Retido! #######");
                             }else{
+                                contaAutenticada = cartao.getConta();
                                 exibirMenuTransacoesAutenticadas();
                             }
                         }
                         break;
                     }
                     
+                    opcao = "M";
                 }catch (Exception e){
-                    System.out.println("Cartão inválido!");
+                    System.err.println("Cartão inválido!");
                 }
-            }
         }while (!opcao.equalsIgnoreCase("M"));
+    }
+    
+    private Cartao digitarCartao(){
+        Scanner ler = new Scanner(System.in);
+        
+        ContasController controller = new ContasController();
+        Cartao cartao = null;
+        String numeroCartao = "";
+        
+        do{
+            System.out.print(" -> Digite o número do cartão: ");
+            
+            numeroCartao = ler.nextLine();
+            
+            if (numeroCartao.equals("0")){
+                System.exit(0);
+            }else if (numeroCartao.equalsIgnoreCase("M")){
+                break;
+            }
+            
+            if (Util.isLong(numeroCartao)){
+                cartao = controller.validarCartao(Long.parseLong(numeroCartao));
+                if (cartao!=null){
+                    break;
+                }else{
+                    System.err.println("Número do cartão inválido!");
+                }
+            }else{
+                System.err.println("Digite apenas números");
+            }
+        }while(true);
+        
+        return cartao;
     }
     
     private void limparConsole(){

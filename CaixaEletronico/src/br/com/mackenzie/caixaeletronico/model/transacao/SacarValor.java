@@ -17,15 +17,17 @@ import java.util.Date;
 public class SacarValor {
     protected SacarValor(){}
     
-    public boolean sacar(Conta conta, float valor){
-        conta.setSaldo(conta.getSaldo()-valor);
-        
-        if (conta.getSaldo()<0){
-            System.err.println("### Saque não realizado. Seu saldo esta negativo! ###");
+    public boolean sacar(Conta conta, float valor, boolean gerarLog){
+        if (conta.getSaldo()-valor<0){
+            return false;
+        }else{
+            conta.setSaldo(conta.getSaldo()-valor);
         }
         
-        conta.getListaHistorico().add(new Historico("Saque", new Date(), valor));
-        Log.gravarTransacao(conta, ConstantsUtil.LOG_MENSAGEM_SAQUE+valor);
+        if (gerarLog){
+            conta.getListaHistorico().add(new Historico("Saque", new Date(), valor));
+            Log.gravarTransacao(conta, ConstantsUtil.LOG_MENSAGEM_SAQUE+valor);
+        }
         
         return true;
     }

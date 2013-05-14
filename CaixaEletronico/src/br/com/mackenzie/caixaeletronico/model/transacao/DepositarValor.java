@@ -17,12 +17,13 @@ import java.util.Date;
  public class DepositarValor {
     protected DepositarValor(){}
     
-    public boolean depositar(Conta conta, float valor){
+    public boolean depositar(Conta conta, float valor, boolean gerarLog){
         conta.setSaldo(conta.getSaldo()+valor);
         
-        conta.getListaHistorico().add(new Historico("Depósito", new Date(), valor));
-        Log.gravarTransacao(conta, ConstantsUtil.LOG_MENSAGEM_DEPOSITO+valor);
-        
+        if (gerarLog){
+            conta.getListaHistorico().add(new Historico("Depósito", new Date(), valor));
+            Log.gravarTransacao(conta, ConstantsUtil.LOG_MENSAGEM_DEPOSITO+valor);
+        }
         return true;
     }
 }

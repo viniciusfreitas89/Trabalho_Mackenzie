@@ -11,9 +11,9 @@ package br.com.mackenzie.caixaeletronico.util;
 public class ConstantsUtil {
     // #### LOG ####
     public static final String LOG_PASTA_ARQUIVO = "logs";
-    public static final String LOG_MENSAGEM_DEPOSITO = "DEPOSITO REALIZADO NO VALOR: ";
-    public static final String LOG_MENSAGEM_SAQUE = "SAQUE REALIZADO NO VALOR: ";
-    public static final String LOG_MENSAGEM_ENVIAR_TRANSFERENCIA = "TRANSFERENCIA REALIZADO NO VALOR: ";
-    public static final String LOG_MENSAGEM_RECEBER_TRANSFERENCIA = "TRANSFERENCIA RECEBIDA NO VALOR: ";
+    public static final String LOG_MENSAGEM_DEPOSITO = "DEPOSITO REALIZADO NO VALOR: R$ ";
+    public static final String LOG_MENSAGEM_SAQUE = "SAQUE REALIZADO NO VALOR: R$ ";
+    public static final String LOG_MENSAGEM_ENVIAR_TRANSFERENCIA = "TRANSFERENCIA REALIZADO NO VALOR: R$ ";
+    public static final String LOG_MENSAGEM_RECEBER_TRANSFERENCIA = "TRANSFERENCIA RECEBIDA NO VALOR: R$ ";
     
 }

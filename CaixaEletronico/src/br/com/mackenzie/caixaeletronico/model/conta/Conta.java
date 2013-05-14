@@ -28,6 +28,15 @@ public class Conta {
         listaHistorico = new ArrayList<Historico>();
     }
     
+    public Conta(long numero){
+        this.numero = numero;
+        this.cliente = null;
+        this.saldo = 0;
+        this.cartao = null;
+        
+        listaHistorico = new ArrayList<Historico>();
+    }
+    
     @Override
     public boolean equals(Object o){
         if (o!=null && o instanceof Conta){

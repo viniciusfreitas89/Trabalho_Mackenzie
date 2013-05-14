@@ -17,10 +17,13 @@ import java.util.Date;
     
     public String consultarExtrato(Conta conta, Date dtInicio, Date dtFim){
         String str ="";  
-        str+= "### Extrato Bancário:";
+        str+= "### Extrato Bancário:\n\n";
         for (Historico historico : conta.getListaHistorico()){
-            str+= historico;
+            str+= historico+"\n";
         }
+        
+        str+= "\n\n### Saldo: R$"+conta.getSaldo();
+        
         return str;
     }
 }
