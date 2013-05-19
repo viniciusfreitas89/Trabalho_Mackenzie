@@ -18,14 +18,17 @@ public class TransferirValor extends TransacaoFactory{
     protected TransferirValor(){}
     
     public boolean transferir(Conta origem, Conta destino, float valor){
-        TransacaoFactory.criarSacarValor().sacar(destino, valor, false);
-        TransacaoFactory.criarDepositarValor().depositar(destino, valor, false);
-        
-        origem.getListaHistorico().add(new Historico("Transferência Enviada para a conta: "+destino, new Date(), valor));
-        destino.getListaHistorico().add(new Historico("Transferência Recebida da conta: "+origem, new Date(), valor));
-        
-        Log.gravarTransacao(origem, ConstantsUtil.LOG_MENSAGEM_ENVIAR_TRANSFERENCIA+valor);
-        Log.gravarTransacao(destino, ConstantsUtil.LOG_MENSAGEM_RECEBER_TRANSFERENCIA+valor);
+        if (TransacaoFactory.criarSacarValor().sacar(destino, valor, false)){
+            TransacaoFactory.criarDepositarValor().depositar(destino, valor, false);
+
+            origem.getListaHistorico().add(new Historico("Transferência Enviada para a conta: "+destino, new Date(), valor));
+            destino.getListaHistorico().add(new Historico("Transferência Recebida da conta: "+origem, new Date(), valor));
+
+            Log.gravarTransacao(origem, ConstantsUtil.LOG_MENSAGEM_ENVIAR_TRANSFERENCIA+valor);
+            Log.gravarTransacao(destino, ConstantsUtil.LOG_MENSAGEM_RECEBER_TRANSFERENCIA+valor);
+        }else{
+            return false;
+        }
         
         return true;
     }

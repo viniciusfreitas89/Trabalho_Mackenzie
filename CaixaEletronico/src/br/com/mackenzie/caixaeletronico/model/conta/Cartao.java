@@ -15,6 +15,7 @@ public class Cartao {
     private long numeroCartao;
     private String senha;
     private boolean retido;
+    private int tentativasSenha = 0;
     
     public Cartao(Conta conta, String senha){
         this.conta = conta;
@@ -86,5 +87,12 @@ public class Cartao {
     public void setRetido(boolean retido) {
         this.retido = retido;
     }
-    
+
+    public int getTentativasSenha() {
+        return tentativasSenha;
+    }
+
+    public void setTentativasSenha(int tentativasSenha) {
+        this.tentativasSenha = tentativasSenha;
+    }
 }

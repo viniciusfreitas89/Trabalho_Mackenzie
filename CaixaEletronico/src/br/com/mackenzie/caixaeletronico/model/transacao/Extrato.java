@@ -19,7 +19,14 @@ import java.util.Date;
         String str ="";  
         str+= "### Extrato Bancário:\n\n";
         for (Historico historico : conta.getListaHistorico()){
-            str+= historico+"\n";
+            if (dtInicio!=null && dtFim!=null){
+                if ( (historico.getDate().equals(dtInicio) || historico.getDate().after(dtInicio)) &&
+                     (historico.getDate().equals(dtFim) || historico.getDate().before(dtFim))) {
+                    str+= historico+"\n";
+                }
+            }else{
+                str+= historico+"\n";
+            }
         }
         
         str+= "\n\n### Saldo: R$"+conta.getSaldo();

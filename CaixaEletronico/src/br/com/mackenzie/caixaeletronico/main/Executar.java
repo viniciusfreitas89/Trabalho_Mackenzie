@@ -7,6 +7,7 @@ package br.com.mackenzie.caixaeletronico.main;
 import br.com.mackenzie.caixaeletronico.controller.ContasController;
 import br.com.mackenzie.caixaeletronico.model.conta.Conta;
 import br.com.mackenzie.caixaeletronico.util.Util;
+import com.sun.org.apache.bcel.internal.generic.INSTANCEOF;
 import java.util.Scanner;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -133,14 +134,15 @@ public class Executar {
    
    private static void exibirExtrato(Conta conta){
        ContasController controller = new ContasController();
-       
-       System.err.println(controller.consultarExtrato(conta, null, null));
-       
-        try {
-            Thread.sleep(1000);
-        } catch (InterruptedException ex) {
-            Logger.getLogger(Executar.class.getName()).log(Level.SEVERE, null, ex);
-        }
+       Object extrato = controller.consultarExtrato(conta, null, null);
+       if (extrato!=null && extrato instanceof String ){
+        System.err.println(extrato.toString());
+         try {
+             Thread.sleep(1000);
+         } catch (InterruptedException ex) {
+             Logger.getLogger(Executar.class.getName()).log(Level.SEVERE, null, ex);
+         }
+       }
    }
     
 }

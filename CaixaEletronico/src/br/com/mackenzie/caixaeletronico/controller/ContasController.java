@@ -13,6 +13,8 @@ import java.util.Date;
  */
 public class ContasController {
     
+    public static final int LIMITE_TENTATIVAS_SENHA = 3; 
+    
     public Cartao validarCartao(long numCartao){
        Cartao c = new Cartao(numCartao);
        int index = BaseDados.cartaoExiste(c);
@@ -40,16 +42,20 @@ public class ContasController {
         int index = BaseDados.cartaoExiste(cartao);
             
         if(index > -1){
-            if(BaseDados.cartaoSenhaConfere(BaseDados.getCartoes().get(index), cartao.getSenha())){
+            if(BaseDados.getCartoes().get(index).getTentativasSenha() == LIMITE_TENTATIVAS_SENHA){
+                return new Status(3, "Limite de tentativas de senha atingido.", BaseDados.getCartoes().get(index).getConta());
+            }else if(BaseDados.cartaoSenhaConfere(BaseDados.getCartoes().get(index), cartao.getSenha())){
+                BaseDados.getCartoes().get(index).setTentativasSenha(0);
                 return new Status(0, "Senha válida", BaseDados.getCartoes().get(index).getConta());
             }else{
-                return new Status(-2, "Senha inválida", null);
+                BaseDados.getCartoes().get(index).setTentativasSenha(BaseDados.getCartoes().get(index).getTentativasSenha()+1);
+                return new Status(2, "Senha inválida", null);
             }
         }
-        return new Status(-1, "Cartão inválido", null);
+        return new Status(1, "Cartão inválido", null);
      }
     
-     public String consultarExtrato(Conta conta, Date dtInicio, Date dtFim){
+     public Object consultarExtrato(Conta conta, Date dtInicio, Date dtFim){
          return TransacaoFactory.criarExtrato().consultarExtrato(conta, dtInicio, dtFim);
      }
      public boolean transferirValor(Conta contaOrigem, float valor, Conta contaDestino){
