@@ -4,7 +4,6 @@
  */
 package br.com.mackenzie.caixaeletronico.controller;
 
-import br.com.mackenzie.caixaeletronico.model.conta.Conta;
 
 /**
  *
@@ -13,12 +12,12 @@ import br.com.mackenzie.caixaeletronico.model.conta.Conta;
 public class Status {
    private int status;
    private String mensagem;
-   private Conta conta;
+   private Object object;
    
-   public Status(int status, String msg, Conta conta ){
+   public Status(int status, String msg, Object object ){
        this.status = status;
        this.mensagem = msg;
-       this.conta = conta;
+       this.object = object;
    }
 
     public int getStatus() {
@@ -37,13 +36,11 @@ public class Status {
         this.mensagem = mensagem;
     }
 
-    public Conta getConta() {
-        return conta;
+    public Object getObject() {
+        return object;
     }
 
-    public void setConta(Conta conta) {
-        this.conta = conta;
-    } 
-   
-   
+    public void setObject(Object object) {
+        this.object = object;
+    }
 }

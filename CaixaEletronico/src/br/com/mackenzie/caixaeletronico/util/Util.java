@@ -4,6 +4,10 @@
  */
 package br.com.mackenzie.caixaeletronico.util;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 /**
  *
  * @author Vinicius
@@ -34,5 +38,20 @@ public class Util {
             return false;
         }
         return true;
+    }
+    
+    public static Date isAValidDate(String dateToValidate, String dateFromat){
+        Date date = null;
+        if(dateToValidate == null){
+            return date;
+        }
+        SimpleDateFormat sdf = new SimpleDateFormat(dateFromat);
+        sdf.setLenient(false);
+        try {
+            date = sdf.parse(dateToValidate);
+            return date;
+        } catch (ParseException e) {
+            return null;
+        }
     }
 }

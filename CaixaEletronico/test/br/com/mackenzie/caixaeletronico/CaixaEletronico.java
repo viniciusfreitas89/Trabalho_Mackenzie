@@ -77,11 +77,12 @@ public class CaixaEletronico {
     @Test
     public void uc04(){
         assertEquals("Teste: Transferir valor acima do limite de conta.", false, controller.transferirValor(cartaoValido.getConta(), 1255666, BaseDados.getContas().get(1)));
-        
     }
     
     @Test
-    public void uc07(){
-        assertEquals("Teste: Inserir datas inválidas.", null, controller.validarConta(1255666));
+    public void uc08(){
+        assertEquals("Teste: Inserir datas inválidas.", 2, controller.consultarExtrato(cartaoValido.getConta(), "99/99/9999", "01/01/2013").getStatus());
+        assertEquals("Teste: Inserir datas inválidas.", 2, controller.consultarExtrato(cartaoValido.getConta(), "31/02/2013", "01/01/2013").getStatus());
+        assertEquals("Teste: Período inicial superior ao período final.", 1, controller.consultarExtrato(cartaoValido.getConta(), "20/02/2013", "01/01/2013").getStatus());
     }
 }

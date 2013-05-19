@@ -6,6 +6,7 @@ package br.com.mackenzie.caixaeletronico.controller;
 import br.com.mackenzie.caixaeletronico.model.conta.*;
 import br.com.mackenzie.caixaeletronico.model.transacao.*;
 import br.com.mackenzie.caixaeletronico.util.BaseDados;
+import br.com.mackenzie.caixaeletronico.util.Util;
 import java.util.Date;
 /**
  *
@@ -55,8 +56,21 @@ public class ContasController {
         return new Status(1, "Cartão inválido", null);
      }
     
-     public Object consultarExtrato(Conta conta, Date dtInicio, Date dtFim){
-         return TransacaoFactory.criarExtrato().consultarExtrato(conta, dtInicio, dtFim);
+     public Status consultarExtrato(Conta conta, String dataInicio, String dataFim){
+         Date dtInicio = null, dtFim = null;
+         
+         if (dataInicio!=null && dataFim!=null){
+            if ((dtInicio = Util.isAValidDate(dataInicio, "dd/MM/yyyy"))==null){
+                 return new Status(2, "Data de inicio inválida.", null);
+            } 
+            if ((dtFim = Util.isAValidDate(dataFim, "dd/MM/yyyy"))==null){
+                 return new Status(2, "Data final inválida.", null);
+            }
+            if (dtInicio.after(dtFim)){
+                return new Status(1, "Data inicial deve ser menor ou igual a data final,", null);
+            }
+         }
+         return new Status(0, "Extrato criado com súcesso",TransacaoFactory.criarExtrato().consultarExtrato(conta, dtInicio, dtFim));
      }
      public boolean transferirValor(Conta contaOrigem, float valor, Conta contaDestino){
         return TransacaoFactory.criarTransferirValor().transferir(contaOrigem, contaDestino, valor);                 

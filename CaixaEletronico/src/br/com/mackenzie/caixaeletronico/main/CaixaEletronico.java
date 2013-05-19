@@ -129,6 +129,7 @@ public class CaixaEletronico {
                     opcao = "M";
                 }catch (Exception e){
                     System.err.println("Cartão inválido!");
+                    e.printStackTrace();
                 }
         }while (!opcao.equalsIgnoreCase("M"));
     }
@@ -163,7 +164,7 @@ public class CaixaEletronico {
             }
         }while(true);
         
-        return cartao;
+        return new Cartao(cartao.getNumeroCartao());
     }
     
     private void limparConsole(){
